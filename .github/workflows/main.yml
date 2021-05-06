@@ -28,7 +28,8 @@ jobs:
     # Setup the environment
     env:
       SETUP: true
-      INSTALL_DIR: ${{ github.workspace }}/install
+      INSTALL_DIR: ${{ runner.workspace }}/install
+      RUN_DIR: ${{ runner.workspace }}/run
       
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -53,4 +54,14 @@ jobs:
           
       # Build and Install ACTS
       - name: Build ACTS
-        run: cmake --build build
+        run: cmake --build build  -- install
+
+      # Setup run environment
+      - name: Setup run environment
+        run: cd /opt/local && source bin/this_dd4hep.sh && mkdir ${RUN_DIR} && cd ${RUN_DIR}
+            
+      # Single muon chain test
+      - name: Chain test: single muons
+        run: source ${GITHUB_WORKDIR}/scripts/run_pdg13_mp100.sh
+
+
