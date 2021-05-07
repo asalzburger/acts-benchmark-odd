@@ -49,7 +49,20 @@ jobs:
           -DCMAKE_BUILD_TYPE=Release
           -DCMAKE_CXX_FLAGS=-Werror
           -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}"
-          -DACTS_BUILD_EVERYTHING=on
+          -DACTS_BUILD_UNITTESTS=OFF
+          -DACTS_BUILD_BENCHMARKS=OFF
+          -DACTS_BUILD_INTEGRATIONTESTS=OFF
+          -DACTS_BUILD_PLUGIN_DD4HEP=ON
+          -DACTS_BUILD_PLUGIN_DIGITIZATION=ON
+          -DACTS_BUILD_PLUGIN_IDENTIFICATION=ON
+          -DACTS_BUILD_PLUGIN_JSON=ON
+          -DACTS_BUILD_FATRAS=ON
+          -DACTS_BUILD_FATRAS_GEANT4=ON
+          -DACTS_BUILD_EXAMPLES=ON
+          -DACTS_BUILD_EXAMPLES_DD4HEP=ON
+          -DACTS_BUILD_EXAMPLES_GEANT4=ON
+          -DACTS_BUILD_EXAMPLES_HEPMC3=ON
+          -DACTS_BUILD_EXAMPLES_PYTHIA8=ON
           -DACTS_LOG_FAILURE_THRESHOLD=WARNING
           
       # Build and Install ACTS
@@ -58,10 +71,11 @@ jobs:
 
       # Setup run environment
       - name: Setup run environment
-        run: ls -l /usr/local && cd /usr/local && source bin/thisdd4hep.sh && mkdir ${RUN_DIR} && cd ${RUN_DIR}
+        run: ls -l /usr/local/bin && ls -l /usr/local/bin
+      #cd /usr/local && source bin/thisdd4hep.sh && mkdir ${RUN_DIR} && cd ${RUN_DIR}
             
       # Muon chain test
-      - name: Multi muon chain test
-        run: source ${GITHUB_WORKDIR}/scripts/run_pdg13_mp100.sh
+      # - name: Multi muon chain test
+      #  run: source ${GITHUB_WORKDIR}/scripts/run_pdg13_mp100.sh
 
 
