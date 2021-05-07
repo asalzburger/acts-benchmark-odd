@@ -75,6 +75,6 @@ jobs:
             
       # Muon chain test
       - name: Multi muon chain test
-      run: source ${GITHUB_WORKSPACE}/scripts/run_pdg13_mp100.sh
+        run: source ${GITHUB_WORKSPACE}/scripts/run_pdg13_mp100.sh
 
 
