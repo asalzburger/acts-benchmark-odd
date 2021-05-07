@@ -69,9 +69,9 @@ jobs:
       - name: Build ACTS
         run: cmake --build build -j2 -- install
 
-      # Setup run environment
+      # Setup run environment - cd /usr/local; source bin/thisdd4hep.sh && 
       - name: Setup run environment
-        run: cd /usr/local; source bin/thisdd4hep.sh && mkdir ${RUN_DIR} && cd ${RUN_DIR}
+        run: mkdir ${RUN_DIR} && cd ${RUN_DIR}
             
       # Muon chain test
       - name: Multi muon chain test
