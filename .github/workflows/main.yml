@@ -58,7 +58,7 @@ jobs:
 
       # Setup run environment
       - name: Setup run environment
-        run: cd /opt/local && source bin/this_dd4hep.sh && mkdir ${RUN_DIR} && cd ${RUN_DIR}
+        run: ls -l /usr/local && cd /usr/local && source bin/thisdd4hep.sh && mkdir ${RUN_DIR} && cd ${RUN_DIR}
             
       # Muon chain test
       - name: Multi muon chain test
