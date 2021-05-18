@@ -39,6 +39,13 @@ for pt in ${pt_vals}; do
    echo "${FITTING_CONFIG}  ${BFIELD_CONFIG} ${MATERIAL_CONFIG} ${DIGI_CONFIG}" >> ${OUT_DIR}/fitting.response
    echo "--input-dir=${OUT_DIR} --output-dir=${OUT_DIR}" >> ${OUT_DIR}/fitting.response
    ${INSTALL_DIR}/bin/ActsExampleTruthTracksDD4hep  --response-file=${OUT_DIR}/fitting.response > ${OUT_DIR}/fitting.log
+   # Running the CKF - smeared thruth seeds
+   echo "-- Truth Fitting with smeared digitization, smeared truth seeds ... " 
+   echo "--events=${N_EVENTS} --dd4hep-input=${ODD_DIR}/xml/OpenDataDetector.xml" > ${OUT_DIR}/ckf.response
+   echo "--ckf-truth-smeared-seeds on ${FITTING_CONFIG}  ${BFIELD_CONFIG} ${MATERIAL_CONFIG} ${DIGI_CONFIG}" >> ${OUT_DIR}/ckf.response
+   echo "--input-dir=${OUT_DIR} --output-dir=${OUT_DIR}" >> ${OUT_DIR}/ckf.response
+   ${INSTALL_DIR}/bin/ActsExampleCKFTracksDD4hep  --response-file=${OUT_DIR}/ckf.response > ${OUT_DIR}/ckf.log
+
 done
 
 echo "... done."
