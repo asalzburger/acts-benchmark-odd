@@ -5,3 +5,4 @@ At current it runs
  * single muon generation
  * fast track simulation
  * truth track fitting
+ * combinatorial Kalman filter
