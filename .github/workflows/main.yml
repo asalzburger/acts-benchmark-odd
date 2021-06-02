@@ -41,11 +41,13 @@ jobs:
         run: > 
           git submodule update --init &&
           git --git-dir=acts/.git log | head -1 > acts.checkout.commit &&
-          tar xvfz data/build/installed.tgz
+          git restore --source gh-pages -- xvfz data/build/installed.tgz &&
+          tar xvfz data/build/installed.tgz && 
+          export PERFORM_BUILD=`diff acts.checkout.commit installed/acts.build.commit
 
       # Configure CMake
       - name: Configure CMake
-        if: False
+        if: ${PERFORM_BUILD}
         run: >
           ${SETUP} &&
           cmake -B build -S acts
@@ -71,7 +73,7 @@ jobs:
           
       # Build and Install ACTS, github runners are dual-core VMS
       - name: Build ACTS
-        if: False
+        if: ${PERFORM_BUILD}
         run: cmake --build build -j2 -- install
 
       # Setup run environment 
