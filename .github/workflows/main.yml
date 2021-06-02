@@ -69,12 +69,12 @@ jobs:
       - name: Build ACTS
         run: cmake --build build -j2 -- install
 
-      # Setup run environment - cd /usr/local; source bin/thisdd4hep.sh && 
+      # Setup run environment 
       - name: Setup run environment
-        run: mkdir ${RUN_DIR} && cd ${RUN_DIR}
+        run:  cd /usr/local && /bin/bash -c "source bin/thisdd4hep.sh" &&  mkdir ${RUN_DIR} && cd ${RUN_DIR}
             
       # Muon chain test
-      - name: Multi muon chain test
-        run: source ${GITHUB_WORKSPACE}/scripts/run_pdg13_mp100.sh
+      - name: Multi/Single muon chain test
+        run: /bin/bash -c "source ${GITHUB_WORKSPACE}/scripts/run_pdgX_mpY_nZ.sh 13 100 1000 10"
 
 
