@@ -71,7 +71,7 @@ jobs:
 
       # Setup run environment - cd /usr/local; source bin/thisdd4hep.sh && 
       - name: Setup run environment
-        run:  echo "<ls directory>" && ls -l /usr/local/bin && cd /usr/local && echo "<source>" && source bin/thisdd4hep_only.sh &&  echo "<directory>" && mkdir ${RUN_DIR} && cd ${RUN_DIR}
+        run:  ./bin/thisdd4hep.sh &&  mkdir ${RUN_DIR} && cd ${RUN_DIR}
             
       # Muon chain test
       # - name: Multi muon chain test
