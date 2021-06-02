@@ -38,10 +38,14 @@ jobs:
 
       # Init the submodule
       - name: Initialise git submodules
-        run: git submodule update --init
+        run: > 
+          git submodule update --init &&
+          git --git-dir=acts/.git log | head -1 > acts.checkout.commit &&
+          tar xvfz data/build/installed.tgz
 
       # Configure CMake
       - name: Configure CMake
+        if: False
         run: >
           ${SETUP} &&
           cmake -B build -S acts
@@ -67,6 +71,7 @@ jobs:
           
       # Build and Install ACTS, github runners are dual-core VMS
       - name: Build ACTS
+        if: False
         run: cmake --build build -j2 -- install
 
       # Setup run environment 
