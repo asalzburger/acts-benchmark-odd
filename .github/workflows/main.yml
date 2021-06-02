@@ -42,7 +42,7 @@ jobs:
         run: > 
           git submodule update --init &&
           git --git-dir=acts/.git log | head -1 > acts.checkout.commit &&
-          git restore --source gh-pages -- xvfz data/build/installed.tgz &&
+          git restore --source origin/gh-pages -- data/build/installed.tgz &&
           tar xvfz data/build/installed.tgz && 
           export PERFORM_BUILD=`diff acts.checkout.commit installed/acts.build.commit`
 
