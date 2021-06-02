@@ -14,8 +14,8 @@ export MATERIAL_CONFIG="--mat-input-type=file --mat-input-file=${GITHUB_WORKSPAC
 export BFIELD_CONFIG="--bf-constant-tesla=0.:0.:2."
 export DIGI_CONFIG="--digi-config-file=${ODD_DIR}/config/odd-digi-smearing-config.json"
 export FATRAS_CONFIG=""
-export TRUTH_FITTING_CONFIG="--fit-initial-variance-inflation=100"
-export CKF_CONFIG="--ckf-selection-chi2max=10 --ckf-initial-variance-inflation=100"
+export TRUTH_FITTING_CONFIG="--fit-initial-variance-inflation=100.:100.:100.:100.:100.:100."
+export CKF_CONFIG="--ckf-selection-chi2max=10 --ckf-initial-variance-inflation=100.:100.:100.:100.:100.:100."
 export SEEDING_CONFIG="--geo-selection-config-file=${ODD_DIR}/config/odd-seeding-config.json"
 
 source ${GITHUB_WORKSPACE}/scripts/fatras_reco_chain.sh
