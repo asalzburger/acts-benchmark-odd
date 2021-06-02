@@ -30,6 +30,7 @@ jobs:
       SETUP: true
       INSTALL_DIR: ${{ github.workspace }}/install
       RUN_DIR: ${{ github.workspace }}/run
+      PERFORM_BUILD: 
       
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -47,9 +48,10 @@ jobs:
 
       # Configure CMake
       - name: Configure CMake
-        if: ${PERFORM_BUILD}
+        #if: ${PERFORM_BUILD}
         run: >
-          ${SETUP} &&
+          ${SETUP} && 
+          ${PERFORM_BUILD} &&
           cmake -B build -S acts
           -GNinja
           -DCMAKE_BUILD_TYPE=Release
@@ -73,8 +75,10 @@ jobs:
           
       # Build and Install ACTS, github runners are dual-core VMS
       - name: Build ACTS
-        if: ${PERFORM_BUILD}
-        run: cmake --build build -j2 -- install
+        # if: ${PERFORM_BUILD}
+        run: >
+          ${PERFORM_BUILD} &&
+          cmake --build build -j2 -- install
 
       # Setup run environment 
       - name: Setup run environment
