@@ -74,7 +74,7 @@ jobs:
         run:  > 
           cd /usr/local && 
           /bin/bash -c "source bin/thisdd4hep.sh" &&  
-          /bin/bash -c "${INSTALL_DIR}/bin/source this_acts.sh" &&
+          /bin/bash -c "source ${INSTALL_DIR}/bin/this_acts.sh" &&
           mkdir ${RUN_DIR}           
             
       # Muon chain test
