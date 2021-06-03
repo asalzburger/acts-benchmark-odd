@@ -53,7 +53,7 @@ jobs:
           cat acts.checkout.commit &&
           echo "[ check ] last build commit: " &&
           cat installed/acts.build.commit &&
-          which diff
+          diff acts.checkout.commit installed/acts.build.commit
 
       # Configure CMake
       - name: Configure CMake
@@ -84,7 +84,7 @@ jobs:
           
       # Build and Install ACTS, github runners are dual-core VMS
       - name: Build ACTS
-        # if: ${PERFORM_BUILD}
+        if: false
         run: >
           ${PERFORM_BUILD} &&
           cmake --build build -j2 -- install
