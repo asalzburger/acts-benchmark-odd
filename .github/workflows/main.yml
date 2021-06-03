@@ -122,7 +122,8 @@ jobs:
         run: |
           mkdir run
           cd run
-          ln -s ../install/lib/*.so .          
+          ln -s ../install/lib/*.so .  
+          ls -l        
           source ${GITHUB_WORKSPACE}/scripts/run_pdgX_mpY_nZ.sh 13 100 1000 10
 
       # Upload the build
