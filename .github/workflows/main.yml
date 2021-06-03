@@ -46,11 +46,11 @@ jobs:
           git restore --source origin/gh-pages -- data/build/installed.tgz &&
           tar xvfz data/build/installed.tgz
 
-      # Check if build is necessary
+      # Check if build is necessary -       #/bin/bash -c "diff -q acts.checkout.commit installed/acts.build.commit > diff.commit" && 
       - name: Check last build for validity
         run: >
-          /bin/bash -c "diff -q acts.checkout.commit installed/acts.build.commit > diff.commit" && 
-          cat diff.commit
+          cat acts.checkout.commit &&
+          cat installed/acts.build.commit
 
       # Configure CMake
       - name: Configure CMake
