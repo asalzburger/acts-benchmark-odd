@@ -120,7 +120,7 @@ jobs:
 
       # Upload the build
       - name: Conditional tar and upload build
-        if: ${{ env.UPLOAD_BUILD == 'true' }}
+        if: true # ${{ env.UPLOAD_BUILD == 'true' }}
         working-directory: ${{github.workspace}}
         shell: bash      
         run: | # mv install installed, tar cvfz installed.tgz installed
