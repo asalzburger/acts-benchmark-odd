@@ -65,7 +65,7 @@ jobs:
 
       # Configure CMake
       - name: Configure CMake
-        if : ${{ env.PERFORM_BUILD == 'true' }}
+        if : false # ${{ env.PERFORM_BUILD == 'true' }}
         run: >
           ${SETUP} && 
           cmake -B build -S acts
@@ -91,7 +91,7 @@ jobs:
           
       # Build and Install ACTS, github runners are dual-core VMS
       - name: Build ACTS
-        if : ${{ env.PERFORM_BUILD == 'true' }}
+        if : false # ${{ env.PERFORM_BUILD == 'true' }}
         run: |
           cmake --build build -j2 -- install
           echo "UPLOAD_BUILD=true" >> $GITHUB_ENV
@@ -120,9 +120,8 @@ jobs:
       - name: Zip and upload build
         if: ${{ env.UPLOAD_BUILD == 'true' }}
         working-directory: ${{github.workspace}}
-        shell: bash        
+        shell: bash # mv install installed      
         run: |
-          mv install installed
           mv acts.checkout.commit installed/acts.build.commit
           tar cvfz ${{ github.workspace }}/installed
           git checkout gh-pages
