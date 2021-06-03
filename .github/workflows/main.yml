@@ -119,12 +119,12 @@ jobs:
       - name: Multi/Single muon chain test
         shell: bash
         working-directory: ${{ runner.workspace }} 
-        run: source ${{ env.GITHUB_WORKSPACE }}/scripts/run_pdgX_mpY_nZ.sh 13 100 1000 10
+        run: source ${{ github.workspace  }}/scripts/run_pdgX_mpY_nZ.sh 13 100 1000 10
 
       # Upload the build
       - name: Conditional tar and upload build
         if: ${{ env.UPLOAD_BUILD == 'true' }}
-        working-directory: ${{github.workspace}}
+        working-directory: ${{ github.workspace }}
         shell: bash
         run: |
           rm -rf installed
