@@ -53,7 +53,7 @@ jobs:
           export BUILD_COMMIT=`cat installed/acts.build.commit | cut -c8-47`
           echo "[ check ] current checkout commit: ${CHECKOUT_COMMIT}"
           echo "[ check ] last build commit: ${BUILD_COMMIT}"
-          if [[ CHECKOUT_COMMIT == BUILD_COMMIT ]]; then
+          if [[ ${CHECKOUT_COMMIT} == ${BUILD_COMMIT} ]]; then
             echo "[ check ] No build neccessary"
           else
             echo "[ check ] Rebuild neccessary"
