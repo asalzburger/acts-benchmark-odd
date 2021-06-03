@@ -45,7 +45,7 @@ jobs:
           git fetch origin gh-pages &&
           git restore --source origin/gh-pages -- data/build/installed.tgz &&
           tar xvfz data/build/installed.tgz && 
-          diff -q acts.checkout.commit installed/acts.build.commit > diff.commit &&
+          diff acts.checkout.commit installed/acts.build.commit > diff.commit &&
           cat diff.commit
 
       # Configure CMake
