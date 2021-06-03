@@ -39,11 +39,11 @@ jobs:
 
       # Init the submodule
       - name: Initialise git submodules
-        run: > 
-          git submodule update --init &&
-          git --git-dir=acts/.git log | head -1 > acts.checkout.commit &&
-          git fetch origin gh-pages &&
-          git restore --source origin/gh-pages -- data/build/installed.tgz &&
+        run: | 
+          git submodule update --init
+          git --git-dir=acts/.git log | head -1 > acts.checkout.commit
+          git fetch origin gh-pages
+          git restore --source origin/gh-pages -- data/build/installed.tgz
           tar xvfz data/build/installed.tgz
 
       # Check if build is necessary -       #/bin/bash -c "diff -q acts.checkout.commit installed/acts.build.commit > diff.commit" && 
@@ -53,15 +53,17 @@ jobs:
           export BUILD_COMMIT=`cat installed/acts.build.commit | cut -c8-47`
           echo "[ check ] current checkout commit: ${CHECKOUT_COMMIT}"
           echo "[ check ] last build commit: ${BUILD_COMMIT}"
-          if [[ ${CHECKOUT_COMMIT} == ${BUILD_COMMIT} ]]; then
+          if [ ${CHECKOUT_COMMIT} == ${BUILD_COMMIT} ]; then
             echo "[ check ] No build neccessary"
+            export PERFORM_BUILD=""
           else
             echo "[ check ] Rebuild neccessary"
+            export PERFORM_BUILD=true
           fi
 
       # Configure CMake
       - name: Configure CMake
-        if : false
+        if : env.PERFORM_BUILD
         run: >
           ${SETUP} && 
           ${PERFORM_BUILD} &&
@@ -88,9 +90,8 @@ jobs:
           
       # Build and Install ACTS, github runners are dual-core VMS
       - name: Build ACTS
-        if: false
-        run: >
-          ${PERFORM_BUILD} &&
+        if: env.PERFORM_BUILD
+        run: |
           cmake --build build -j2 -- install
 
       # Setup run environment 
