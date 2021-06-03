@@ -57,6 +57,7 @@ jobs:
 
       # Configure CMake
       - name: Configure CMake
+        if : false
         run: >
           ${SETUP} && 
           ${PERFORM_BUILD} &&
