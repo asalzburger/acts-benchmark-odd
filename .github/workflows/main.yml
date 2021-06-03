@@ -110,8 +110,8 @@ jobs:
         run:  | 
           cd /usr/local 
           source bin/thisdd4hep.sh
-          source ${{ github.workspace }}/install/bin/this_acts.sh
           ls ${{ github.workspace }}/install
+      # source ${{ github.workspace }}/install/bin/this_acts.sh
             
       # Muon chain test
       - name: Multi/Single muon chain test
