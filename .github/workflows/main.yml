@@ -123,11 +123,11 @@ jobs:
         if: true # ${{ env.UPLOAD_BUILD == 'true' }}
         working-directory: ${{github.workspace}}
         shell: bash      
-        run: | # mv install installed, tar cvfz installed.tgz installed
+        run: | # mv install installed
           mv installed blabla
           mkdir installed
           mv acts.checkout.commit installed/acts.build.commit 
-          cvfz installed.tgz installed
+          tar cvfz installed.tgz installed
           rm data/build/installed.tgz
           git checkout gh-pages
           mv installed.tgz data/build/installed.tgz
