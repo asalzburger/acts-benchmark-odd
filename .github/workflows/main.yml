@@ -41,6 +41,8 @@ jobs:
       # Init the submodule
       - name: Initialise git submodules
         run: |
+          echo "[ info ] in directory:"
+          pwd
           git submodule update --init
           git --git-dir=acts/.git log | head -1 > acts.checkout.commit
           git fetch origin gh-pages
@@ -100,7 +102,12 @@ jobs:
       - name: Conditional re-use of prior ACTS build
         if: ${{ env.PERFORM_BUILD == 'false' }}
         working-directory: ${{github.workspace}}
-        run: echo "INSTALL_DIR=installed"
+        run: | 
+          echo "[ info ] in directory:"
+          pwd
+          echo "[ info ] while 1: ${GITHUB_WORKSPACE}"
+          echo "[ info ] while 2 : ${{env.GITHUB_WORKSPACE}}"
+          echo "INSTALL_DIR=installed"
 
       # Setup DD4hep environment
       - name: Setup DD4hep environment
