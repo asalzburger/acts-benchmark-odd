@@ -107,14 +107,13 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}
         run: |
-          source installed/bin/this_acts.sh
 
       # Muon chain test
       - name: Multi muon chain test
         shell: bash
         working-directory: ${{ github.workspace }} 
         run: |
-          export LD_LIBRARY_PATH=${INSTALL_DIR}/lib:${LD_LIBRARY_PATH}   
+          source installed/bin/this_acts.sh
           mkdir run
           cd run
           source ${GITHUB_WORKSPACE}/scripts/run_pdgX_mpY_nZ.sh 13 100 1000 10
