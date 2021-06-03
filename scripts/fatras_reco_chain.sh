@@ -1,11 +1,9 @@
-
-
 function fatras_reco_chain() {
    # Runnig Fatras
    echo "-- Fatras ... " 
    echo "--events=${N_EVENTS} --dd4hep-input=${ODD_DIR}/xml/OpenDataDetector.xml" > ${OUT_DIR}/fatras.response
    echo "${FATRAS_CONFIG} ${BFIELD_CONFIG} ${MATERIAL_CONFIG}" >> ${OUT_DIR}/fatras.response
-   echo "--input-dir=${OUT_DIR}   --output-dir=${OUT_DIR} --output-csv" >> ${OUT_DIR}/fatras.response
+   echo "--input-dir=${OUT_DIR}   --output-dir=${OUT_DIR} --output-csv --output-root" >> ${OUT_DIR}/fatras.response
    ActsExampleFatrasDD4hep --response-file=${OUT_DIR}/fatras.response > ${OUT_DIR}/fatras.log
    # Runnint Truth Fitting
    echo "-- Truth Fitting with smeared digitization ... " 
