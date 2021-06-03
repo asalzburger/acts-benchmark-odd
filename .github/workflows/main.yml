@@ -112,14 +112,12 @@ jobs:
 
       # Setup ACTS environment 
       - name: Setup ACTS environment for fresh build
-        if: false 
         shell: bash
         working-directory: ${{ github.workspace }}
         run: source ${INSTALL_DIR}/bin/this_acts.sh
 
       # Muon chain test
       - name: Multi muon chain test
-        if: false
         shell: bash
         working-directory: ${{ github.workspace }} 
         run: |
