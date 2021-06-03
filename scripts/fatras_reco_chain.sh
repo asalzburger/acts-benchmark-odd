@@ -42,5 +42,5 @@ function fatras_reco_chain() {
    mv ${OUT_DIR}/performance_ckf.root ${OUT_DIR}/performance_ckf-reconstruced-seeds.root
    mv ${OUT_DIR}/trackparams_ckf.root ${OUT_DIR}/trackparams_ckf-reconstruced-seeds.root
    mv ${OUT_DIR}/trackstates_ckf.root ${OUT_DIR}/trackstates_ckf-reconstruced-seeds.root
-   ls -l *.root
+   ls -l ${OUT_DIR}/*.root
 }

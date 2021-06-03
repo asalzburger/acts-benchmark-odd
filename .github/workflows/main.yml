@@ -99,14 +99,17 @@ jobs:
       - name: Setup DD4hep environment
         shell: bash
         run: |
-          cd /usr/local 
-          source bin/thisdd4hep.sh
+
 
       # Muon chain test
       - name: Multi muon chain test
         shell: bash
         working-directory: ${{ github.workspace }} 
-        run: |
+        run: | 
+          export PWD_DIR=`pwd`         
+          cd /usr/local 
+          source bin/thisdd4hep.sh
+          cd ${PWD_DIR}
           source installed/bin/this_acts.sh
           export PATH=`pwd`/installed/bin:${PATH}
           export LD_LIBRARY_PATH=`pwd`/installed/lib:${LD_LIBRARY_PATH}
