@@ -47,8 +47,8 @@ jobs:
           git restore --source origin/gh-pages -- data/build/installed.tgz
           tar xvfz data/build/installed.tgz
 
-      # Check if build is necessary -       #/bin/bash -c "diff -q acts.checkout.commit installed/acts.build.commit > diff.commit" && 
-      - name: Check last build for validity
+      # Check if build is necessary
+      - name: Check re-use of prior build condition
         shell: bash
         run: |
           export CHECKOUT_COMMIT=`cat acts.checkout.commit | cut -c8-47`
@@ -57,15 +57,15 @@ jobs:
           echo "[ check ] last build commit: ${BUILD_COMMIT}"
           if [ ${CHECKOUT_COMMIT} == ${BUILD_COMMIT} ]; then
             echo "[ check ] No build neccessary"
-            echo "PERFORM_BUILD=false" >> $GITHUB_ENV
+            echo "PERFORM_BUILD=true" >> $GITHUB_ENV
           else
             echo "[ check ] Rebuild neccessary"
             echo "PERFORM_BUILD=true" >> $GITHUB_ENV
           fi
 
       # Configure CMake
-      - name: Configure CMake
-        if : false # ${{ env.PERFORM_BUILD == 'true' }}
+      - name: Conditional CMake configuration
+        if : ${{ env.PERFORM_BUILD == 'true' }}
         run: >
           ${SETUP} && 
           cmake -B build -S acts
@@ -90,15 +90,15 @@ jobs:
           -DACTS_LOG_FAILURE_THRESHOLD=WARNING
           
       # Build and Install ACTS, github runners are dual-core VMS
-      - name: Build ACTS
-        if : false # ${{ env.PERFORM_BUILD == 'true' }}
+      - name: Conditional build ACTS
+        if : ${{ env.PERFORM_BUILD == 'true' }}
         run: |
           cmake --build build -j2 -- install
           echo "UPLOAD_BUILD=true" >> $GITHUB_ENV
 
       # Use the installed folder as is
-      - name: Prepare reuse of ACTS build
-        if : false # ${{ env.PERFORM_BUILD == 'false' }}
+      - name: Conditional re-use of prior ACTS build
+        if : ${{ env.PERFORM_BUILD == 'false' }}
         working-directory: ${{github.workspace}}
         run: |
           mv installed install
@@ -120,11 +120,11 @@ jobs:
 
       # Upload the build
       - name: Conditional tar and upload build
-        if: true # ${{ env.UPLOAD_BUILD == 'true' }}
+        if: ${{ env.UPLOAD_BUILD == 'true' }}
         working-directory: ${{github.workspace}}
         shell: bash      
-        run: | # mv install installed
-          mv installed blabla
+        run: | 
+          mv install installed
           mkdir installed
           mv acts.checkout.commit installed/acts.build.commit 
           tar cvfz installed.tgz installed
