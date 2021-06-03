@@ -106,7 +106,7 @@ jobs:
           pwd
           echo "[ info ] while gh-workspace : ${GITHUB_WORKSPACE}"
           echo "[ info ] instal directory   : ${INSTALL_DIR}"
-          echo "INSTALL_DIR=installed"
+          echo "INSTALL_DIR=`pwd`/installed"
 
       # Setup DD4hep environment
       - name: Setup DD4hep environment
@@ -120,7 +120,7 @@ jobs:
       - name: Setup ACTS environment for fresh build
         shell: bash
         working-directory: ${{ github.workspace }}
-        run: source ${INSTALL_DIR}/bin/this_acts.sh
+        run: source ${{ env.INSTALL_DIR }}/bin/this_acts.sh
 
       # Muon chain test
       - name: Multi muon chain test
