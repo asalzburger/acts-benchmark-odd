@@ -116,12 +116,13 @@ jobs:
         run: source install/bin/this_acts.sh
 
       # Muon chain test
-      - name: Multi/Single muon chain test
+      - name: Multi muon chain test
         shell: bash
         working-directory: ${{ github.workspace }} 
         run: |
           mkdir run
           cd run
+          ln -s ../install/lib/*.so .          
           source ${GITHUB_WORKSPACE}/scripts/run_pdgX_mpY_nZ.sh 13 100 1000 10
 
       # Upload the build
