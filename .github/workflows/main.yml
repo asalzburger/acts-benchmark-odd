@@ -127,6 +127,7 @@ jobs:
           mv install installed
           mv acts.checkout.commit installed/acts.build.commit
           tar cvfz installed.tgz installed
+          rm data/build/installed.tgz
           git checkout gh-pages
           mv installed.tgz data/build/installed.tgz
           git push 'https://asalzburger:${{ secrets.PERSONAL_GITHUB_TOKEN }}@github.com/asalzburger/acts-benchmark-odd.git' gh-pages:gh-pages
