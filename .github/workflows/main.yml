@@ -100,7 +100,7 @@ jobs:
       - name: Conditional re-use of prior ACTS build
         if: ${{ env.PERFORM_BUILD == 'false' }}
         working-directory: ${{github.workspace}}
-        run: mv installed install
+        run: echo "INSTALL_DIR=installed" >> $GITHUB_ENV
 
       # Setup DD4hep environment
       - name: Setup DD4hep environment
@@ -110,12 +110,12 @@ jobs:
           cd /usr/local 
           source bin/thisdd4hep.sh
 
-      # Setup ACTS environment
-      - name: Setup ACTS environment
+      # Setup ACTS environment 
+      - name: Setup ACTS environment for fresh build
         if: false 
         shell: bash
         working-directory: ${{ github.workspace }}
-        run: source install/bin/this_acts.sh
+        run: source ${INSTALL_DIR}/bin/this_acts.sh
 
       # Muon chain test
       - name: Multi muon chain test
@@ -125,7 +125,7 @@ jobs:
         run: |
           mkdir run
           cd run
-          export LD_LIBRARY_PATH=../install/lib:${LD_LIBRARY_PATH}   
+          export LD_LIBRARY_PATH=${INSTALL_DIR}/lib:${LD_LIBRARY_PATH}   
           source ${GITHUB_WORKSPACE}/scripts/run_pdgX_mpY_nZ.sh 13 100 1000 10
 
       # Upload the build
