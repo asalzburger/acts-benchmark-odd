@@ -19,8 +19,6 @@ export SEEDING_CONFIG="--geo-selection-config-file=${GITHUB_WORKSPACE}/data/odd-
 
 source ${GITHUB_WORKSPACE}/scripts/fatras_reco_chain.sh
 
-#pt_vals= (1 5 100)
-
 echo "Running ACTS fast simulation chain test ..."
 echo "- Processing ${N_EVENTS} events with ${N_PARTICLES} particles (PDG: ${PDG_PARTICLE}) each"
 for pt in ${PT_VALS}; do
