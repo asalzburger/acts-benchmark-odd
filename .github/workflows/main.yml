@@ -28,8 +28,6 @@ jobs:
     # Setup the environment
     env:
       SETUP: true
-      INSTALL_DIR: ${{ github.workspace }}/install
-      RUN_DIR: ${{ github.workspace }}/run
       PERFORM_BUILD: false
       UPLOAD_BUILD: false
 
@@ -41,7 +39,6 @@ jobs:
       # Init the submodule
       - name: Initialise git submodules
         run: |
-          echo "[ info ] in directory:" `pwd`
           git submodule update --init
           git --git-dir=acts/.git log | head -1 > acts.checkout.commit
           git fetch origin gh-pages
@@ -59,9 +56,11 @@ jobs:
           if [ ${CHECKOUT_COMMIT} == ${BUILD_COMMIT} ]; then
             echo "[ check ] No build neccessary"
             echo "PERFORM_BUILD=false" >> $GITHUB_ENV
+            echo INSTALL_DIR=`pwd`/installed
           else
             echo "[ check ] Rebuild neccessary"
             echo "PERFORM_BUILD=true" >> $GITHUB_ENV
+            echo INSTALL_DIR=`pwd`/freshly_installed
           fi
 
       # Configure CMake conditionally
@@ -106,11 +105,9 @@ jobs:
           pwd
           echo "[ info ] while gh-workspace : ${GITHUB_WORKSPACE}"
           echo "[ info ] instal directory   : ${INSTALL_DIR}"
-          echo "INSTALL_DIR=`pwd`/installed"
 
       # Setup DD4hep environment
       - name: Setup DD4hep environment
-        if: false
         shell: bash
         run: |
           cd /usr/local 
@@ -120,7 +117,7 @@ jobs:
       - name: Setup ACTS environment for fresh build
         shell: bash
         working-directory: ${{ github.workspace }}
-        run: source ${{ env.INSTALL_DIR }}/bin/this_acts.sh
+        run: source ${INSTALL_DIR/bin/this_acts.sh
 
       # Muon chain test
       - name: Multi muon chain test
