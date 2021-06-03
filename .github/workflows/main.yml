@@ -55,7 +55,7 @@ jobs:
           echo "[ check ] last build commit: ${BUILD_COMMIT}"
           if [ ${CHECKOUT_COMMIT} == ${BUILD_COMMIT} ]; then
             echo "[ check ] No build neccessary"
-            echo "PERFORM_BUILD=false" >> $GITHUB_ENV
+            echo "PERFORM_BUILD=true" >> $GITHUB_ENV
           else
             echo "[ check ] Rebuild neccessary"
             echo "PERFORM_BUILD=true" >> $GITHUB_ENV
