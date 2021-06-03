@@ -95,12 +95,6 @@ jobs:
           cmake --build build -j2 -- install
           echo "UPLOAD_BUILD=true" >> $GITHUB_ENV
 
-      # Setup DD4hep environment
-      - name: Setup DD4hep environment
-        shell: bash
-        run: |
-
-
       # Muon chain test
       - name: Multi muon chain test
         shell: bash
