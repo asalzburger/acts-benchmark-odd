@@ -125,7 +125,6 @@ jobs:
         shell: bash      
         run: | 
           mv install installed
-          mkdir installed
           mv acts.checkout.commit installed/acts.build.commit 
           tar cvfz installed.tgz installed
           rm data/build/installed.tgz
