@@ -102,16 +102,20 @@ jobs:
         working-directory: ${{github.workspace}}
         run: |
           rm -rf ${{ github.workspace }}/install
-          mv installed ${{ github.workspace }}/install
+          mv installed install
           
-      # Setup run environment 
-      - name: Setup run environment
+      # Setup DD4hep environment 
+      - name: Setup DD4hep environment
         shell: bash
         run:  | 
           cd /usr/local 
           source bin/thisdd4hep.sh
-          ls ${{ github.workspace }}/install
-      # source ${{ github.workspace }}/install/bin/this_acts.sh
+
+      # Setup ACTS environment 
+      - name: Setup ACTS environment
+        shell: bash
+        working-directory: ${{github.workspace}}
+        run: source install/bin/this_acts.sh
             
       # Muon chain test
       - name: Multi/Single muon chain test
