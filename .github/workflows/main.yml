@@ -44,9 +44,7 @@ jobs:
           git --git-dir=acts/.git log | head -1 > acts.checkout.commit &&
           git fetch origin gh-pages &&
           git restore --source origin/gh-pages -- data/build/installed.tgz &&
-          tar xvfz data/build/installed.tgz && 
-          diff acts.checkout.commit installed/acts.build.commit > diff.commit &&
-          cat diff.commit
+          tar xvfz data/build/installed.tgz
 
       # Configure CMake
       - name: Configure CMake
