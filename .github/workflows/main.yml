@@ -108,8 +108,10 @@ jobs:
         working-directory: ${{ github.workspace }} 
         run: |
           source installed/bin/this_acts.sh
+          export PATH=`pwd`/installed/bin:${PATH}
+          export LD_LIBRARY_PATH=`pwd`/installed/lib;${LD_LIBRARY_PATH}
           mkdir run
-          cd run
+          cd run          
           source ${GITHUB_WORKSPACE}/scripts/run_pdgX_mpY_nZ.sh 13 100 1000 10
 
       # Upload the build
