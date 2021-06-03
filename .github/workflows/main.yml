@@ -101,8 +101,8 @@ jobs:
         if : ${{ env.PERFORM_BUILD == 'false' }}
         working-directory: ${{github.workspace}}
         run: |
-          rm -rf install
-          mv installed install
+          rm -rf ${{ github.workspace }}/install
+          mv installed ${{ github.workspace }}/install
           
       # Setup run environment 
       - name: Setup run environment
