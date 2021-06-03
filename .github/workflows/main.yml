@@ -118,7 +118,7 @@ jobs:
         run: source ${GITHUB_WORKSPACE}/scripts/run_pdgX_mpY_nZ.sh 13 100 1000 10
 
       # Upload the build
-      - name: Zip and upload build
+      - name: Conditional tar and upload build
         if: ${{ env.UPLOAD_BUILD == 'true' }}
         working-directory: ${{github.workspace}}
         shell: bash      
