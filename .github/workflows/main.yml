@@ -98,7 +98,7 @@ jobs:
 
       # Use the installed folder as is
       - name: Prepare reuse of ACTS build
-        if : true # ${{ env.PERFORM_BUILD == 'false' }}
+        if : ${{ env.PERFORM_BUILD == 'false' }}
         working-directory: ${{github.workspace}}
         run: |
           mv installed install
