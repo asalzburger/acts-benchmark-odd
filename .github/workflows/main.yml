@@ -104,7 +104,7 @@ jobs:
           cd /usr/local 
           source bin/thisdd4hep.sh
           cd ${PWD_DIR}
-          ls -l /usr/local/bin
+          source /usr/local/bin/thisroot.sh
           export PATH=`pwd`/installed/bin:${PATH}
           export LD_LIBRARY_PATH=`pwd`/installed/lib:${LD_LIBRARY_PATH}
           mkdir run
