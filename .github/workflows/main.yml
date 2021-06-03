@@ -124,6 +124,7 @@ jobs:
         working-directory: ${{github.workspace}}
         shell: bash      
         run: | # mv install installed, tar cvfz installed.tgz installed
+          mv installed blabla
           mkdir installed
           mv acts.checkout.commit installed/acts.build.commit 
           cvfz installed.tgz installed
