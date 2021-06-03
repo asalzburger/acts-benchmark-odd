@@ -112,12 +112,16 @@ jobs:
         run: |
           cd /usr/local 
           source bin/thisdd4hep.sh
+          echo "[ info ] instal directory   : ${INSTALL_DIR}"
+
 
       # Setup ACTS environment 
       - name: Setup ACTS environment
         shell: bash
         working-directory: ${{ github.workspace }}
-        run: source ${INSTALL_DIR}/bin/this_acts.sh
+        run: |
+          echo "[ info ] instal directory   : ${INSTALL_DIR}"
+          source ${INSTALL_DIR}/bin/this_acts.sh
 
       # Muon chain test
       - name: Multi muon chain test
