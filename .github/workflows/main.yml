@@ -41,8 +41,7 @@ jobs:
       # Init the submodule
       - name: Initialise git submodules
         run: |
-          echo "[ info ] in directory:"
-          pwd
+          echo "[ info ] in directory:" `pwd`
           git submodule update --init
           git --git-dir=acts/.git log | head -1 > acts.checkout.commit
           git fetch origin gh-pages
@@ -105,8 +104,8 @@ jobs:
         run: | 
           echo "[ info ] in directory:"
           pwd
-          echo "[ info ] while 1: ${GITHUB_WORKSPACE}"
-          echo "[ info ] while 2 : ${{env.GITHUB_WORKSPACE}}"
+          echo "[ info ] while gh-workspace : ${GITHUB_WORKSPACE}"
+          echo "[ info ] instal directory   : ${INSTALL_DIR}"
           echo "INSTALL_DIR=installed"
 
       # Setup DD4hep environment
