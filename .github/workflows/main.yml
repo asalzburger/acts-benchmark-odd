@@ -2,13 +2,13 @@
 
 name: CI
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -24,7 +24,7 @@ jobs:
       matrix:
         image:
           - ubuntu2004
-          
+
     # Setup the environment
     env:
       SETUP: true
@@ -32,7 +32,7 @@ jobs:
       RUN_DIR: ${{ github.workspace }}/run
       PERFORM_BUILD: false
       UPLOAD_BUILD: false
-      
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -40,7 +40,7 @@ jobs:
 
       # Init the submodule
       - name: Initialise git submodules
-        run: | 
+        run: |
           git submodule update --init
           git --git-dir=acts/.git log | head -1 > acts.checkout.commit
           git fetch origin gh-pages
@@ -65,7 +65,7 @@ jobs:
 
       # Configure CMake conditionally
       - name: Conditional CMake configuration
-        if : ${{ env.PERFORM_BUILD == 'true' }}
+        if: ${{ env.PERFORM_BUILD == 'true' }}
         run: >
           ${SETUP} && 
           cmake -B build -S acts
@@ -88,47 +88,45 @@ jobs:
           -DACTS_BUILD_EXAMPLES_HEPMC3=ON
           -DACTS_BUILD_EXAMPLES_PYTHIA8=ON
           -DACTS_LOG_FAILURE_THRESHOLD=WARNING
-          
+
       # Build and Install ACTS, github runners are dual-core VMS
       - name: Conditional build ACTS
-        if : ${{ env.PERFORM_BUILD == 'true' }}
+        if: ${{ env.PERFORM_BUILD == 'true' }}
         run: |
           cmake --build build -j2 -- install
           echo "UPLOAD_BUILD=true" >> $GITHUB_ENV
 
       # Use the installed folder as is
       - name: Conditional re-use of prior ACTS build
-        if : ${{ env.PERFORM_BUILD == 'false' }}
+        if: ${{ env.PERFORM_BUILD == 'false' }}
         working-directory: ${{github.workspace}}
-        run: |
-          rm -rf ${{ github.workspace }}/install
-          mv installed install
-          
-      # Setup DD4hep environment 
+        run: mv installed install
+
+      # Setup DD4hep environment
       - name: Setup DD4hep environment
         shell: bash
-        run:  | 
+        run: |
           cd /usr/local 
           source bin/thisdd4hep.sh
 
-      # Setup ACTS environment 
+      # Setup ACTS environment
       - name: Setup ACTS environment
         shell: bash
-        working-directory: ${{github.workspace}}
+        working-directory: ${{ github.workspace }}
         run: source install/bin/this_acts.sh
-            
+
       # Muon chain test
       - name: Multi/Single muon chain test
-        if : false
         shell: bash
-        run: source ${GITHUB_WORKSPACE}/scripts/run_pdgX_mpY_nZ.sh 13 100 1000 10
+        working-directory: ${{ runner.workspace }} 
+        run: source ${{ env.GITHUB_WORKSPACE }}/scripts/run_pdgX_mpY_nZ.sh 13 100 1000 10
 
       # Upload the build
       - name: Conditional tar and upload build
         if: ${{ env.UPLOAD_BUILD == 'true' }}
         working-directory: ${{github.workspace}}
-        shell: bash      
-        run: | 
+        shell: bash
+        run: |
           rm -rf installed
           mv install installed
           mv acts.checkout.commit installed/acts.build.commit 
@@ -141,8 +139,3 @@ jobs:
           git add data/build/installed.tgz
           git commit -m"updating installed.tgz"
           git push 'https://asalzburger:${{ secrets.PERSONAL_GITHUB_TOKEN }}@github.com/asalzburger/acts-benchmark-odd.git' gh-pages:gh-pages
-
-
-
-
-
