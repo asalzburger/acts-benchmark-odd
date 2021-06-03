@@ -31,7 +31,7 @@ jobs:
       INSTALL_DIR: ${{ github.workspace }}/install
       RUN_DIR: ${{ github.workspace }}/run
       PERFORM_BUILD: false
-      UPLOAD_BUILD: true
+      UPLOAD_BUILD: false
       
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -65,7 +65,7 @@ jobs:
 
       # Configure CMake
       - name: Configure CMake
-        if : false # ${{ env.PERFORM_BUILD == 'true' }}
+        if : ${{ env.PERFORM_BUILD == 'true' }}
         run: >
           ${SETUP} && 
           cmake -B build -S acts
@@ -91,7 +91,7 @@ jobs:
           
       # Build and Install ACTS, github runners are dual-core VMS
       - name: Build ACTS
-        if : false # ${{ env.PERFORM_BUILD == 'true' }}
+        if : ${{ env.PERFORM_BUILD == 'true' }}
         run: |
           cmake --build build -j2 -- install
           echo "UPLOAD_BUILD=true" >> $GITHUB_ENV
@@ -103,7 +103,6 @@ jobs:
         run: |
           mv installed install
           
-
       # Setup run environment 
       - name: Setup run environment
         shell: bash
@@ -130,7 +129,9 @@ jobs:
           rm data/build/installed.tgz
           git checkout gh-pages
           mv installed.tgz data/build/installed.tgz
-          git push 'https://asalzburger:${{ secrets.PERSONAL_GITHUB_TOKEN }}@github.com/asalzburger/acts-benchmark-odd.git' gh-pages:gh-pages
+          git add data/build/installed.tgz
+          git commit -m"update last build installation"
+          git push -f 'https://asalzburger:${{ secrets.PERSONAL_GITHUB_TOKEN }}@github.com/asalzburger/acts-benchmark-odd.git' gh-pages:gh-pages
 
 
 
