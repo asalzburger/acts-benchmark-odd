@@ -63,7 +63,7 @@ jobs:
             echo "PERFORM_BUILD=true" >> $GITHUB_ENV
           fi
 
-      # Configure CMake
+      # Configure CMake conditionally
       - name: Conditional CMake configuration
         if : ${{ env.PERFORM_BUILD == 'true' }}
         run: >
