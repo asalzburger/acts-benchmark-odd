@@ -31,7 +31,7 @@ for pt in ${PT_VALS}; do
    mkdir ${OUT_DIR}
    echo "--events=${N_EVENTS} --gen-mom-gev ${pt}:${pt} --gen-randomize-charge --gen-mom-transverse --gen-nparticles=${N_PARTICLES}" > ${OUT_DIR}/evgen.response
    echo "--output-dir=${OUT_DIR} --output-csv" >> ${OUT_DIR}/evgen.response   
-   ./ActsExampleParticleGun --response-file=${OUT_DIR}/evgen.response > ${OUT_DIR}/evgen.log
+   ActsExampleParticleGun --response-file=${OUT_DIR}/evgen.response > ${OUT_DIR}/evgen.log
    # Running Fatras-Reco chain 
    fatras_reco_chain
 done
