@@ -135,7 +135,7 @@ jobs:
         shell: bash
         run: |
           rm -rf installed
-          mv install installed
+          mv ${INSTALL_DIR} installed
           mv acts.checkout.commit installed/acts.build.commit 
           tar cvfz installed.tgz installed
           rm data/build/installed.tgz
