@@ -55,10 +55,10 @@ jobs:
           echo "[ check ] last build commit: ${BUILD_COMMIT}"
           if [ ${CHECKOUT_COMMIT} == ${BUILD_COMMIT} ]; then
             echo "[ check ] No build neccessary"
-            export PERFORM_BUILD=""
+            export env.PERFORM_BUILD=""
           else
             echo "[ check ] Rebuild neccessary"
-            export PERFORM_BUILD=true
+            export env.PERFORM_BUILD=true
           fi
 
       # Configure CMake
@@ -66,7 +66,6 @@ jobs:
         if : env.PERFORM_BUILD
         run: >
           ${SETUP} && 
-          ${PERFORM_BUILD} &&
           cmake -B build -S acts
           -GNinja
           -DCMAKE_BUILD_TYPE=Release
