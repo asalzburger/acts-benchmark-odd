@@ -30,7 +30,7 @@ jobs:
       SETUP: true
       INSTALL_DIR: ${{ github.workspace }}/install
       RUN_DIR: ${{ github.workspace }}/run
-      PERFORM_BUILD: 
+      PERFORM_BUILD: true
       
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -45,7 +45,7 @@ jobs:
           git fetch origin gh-pages &&
           git restore --source origin/gh-pages -- data/build/installed.tgz &&
           tar xvfz data/build/installed.tgz && 
-          export PERFORM_BUILD=`diff -q acts.checkout.commit installed/acts.build.commit`
+          diff -q acts.checkout.commit installed/acts.build.commit > diff.commit
 
       # Configure CMake
       - name: Configure CMake
