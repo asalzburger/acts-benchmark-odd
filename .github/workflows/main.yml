@@ -131,6 +131,8 @@ jobs:
           rm data/build/installed.tgz
           git checkout gh-pages
           mv installed.tgz data/build/installed.tgz
+          git config user.email "asalzburger@gmail.com"
+          git config user "Andreas Salzburger"
           git add data/build/installed.tgz
           git commit -m"updating installed.tgz"
           git push 'https://asalzburger:${{ secrets.PERSONAL_GITHUB_TOKEN }}@github.com/asalzburger/acts-benchmark-odd.git' gh-pages:gh-pages
