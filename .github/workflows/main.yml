@@ -49,8 +49,11 @@ jobs:
       # Check if build is necessary -       #/bin/bash -c "diff -q acts.checkout.commit installed/acts.build.commit > diff.commit" && 
       - name: Check last build for validity
         run: >
+          echo "[ check ] current checkout commit: " &&
           cat acts.checkout.commit &&
-          cat installed/acts.build.commit
+          echo "[ check ] last build commit: " &&
+          cat installed/acts.build.commit &&
+          which diff
 
       # Configure CMake
       - name: Configure CMake
