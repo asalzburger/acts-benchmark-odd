@@ -65,7 +65,7 @@ jobs:
 
       # Configure CMake
       - name: Configure CMake
-        if : ${{ env.PERFORM_BUILD == 'true' }}
+        if : false # ${{ env.PERFORM_BUILD == 'true' }}
         run: >
           ${SETUP} && 
           cmake -B build -S acts
@@ -91,20 +91,21 @@ jobs:
           
       # Build and Install ACTS, github runners are dual-core VMS
       - name: Build ACTS
-        if : ${{ env.PERFORM_BUILD == 'true' }}
+        if : false # ${{ env.PERFORM_BUILD == 'true' }}
         run: |
           cmake --build build -j2 -- install
           echo "UPLOAD_BUILD=true" >> $GITHUB_ENV
 
       # Use the installed folder as is
       - name: Prepare reuse of ACTS build
-        if : ${{ env.PERFORM_BUILD == 'false' }}
+        if : false # ${{ env.PERFORM_BUILD == 'false' }}
         working-directory: ${{github.workspace}}
         run: |
           mv installed install
           
       # Setup run environment 
       - name: Setup run environment
+        if: false
         shell: bash
         run:  | 
           cd /usr/local 
@@ -122,10 +123,10 @@ jobs:
         if: ${{ env.UPLOAD_BUILD == 'true' }}
         working-directory: ${{github.workspace}}
         shell: bash      
-        run: |
-          mv install installed
-          mv acts.checkout.commit installed/acts.build.commit
-          tar cvfz installed.tgz installed
+        run: | # mv install installed, tar cvfz installed.tgz installed
+          mkdir installed
+          mv acts.checkout.commit installed/acts.build.commit 
+          cvfz installed.tgz installed
           rm data/build/installed.tgz
           git checkout gh-pages
           mv installed.tgz data/build/installed.tgz
