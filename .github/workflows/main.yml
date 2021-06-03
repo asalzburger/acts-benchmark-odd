@@ -59,7 +59,8 @@ jobs:
           else
             echo "[ check ] Rebuild neccessary"
             export PERFORM_BUILD=true
-            echo "[ check] setting build flag to ${{ env.PERFORM_BUILD }}" 
+            echo "[ check ] local environmnet build set to ${PERFORM_BUILD}"
+            echo "[ check ] setting build flag to ${{ env.PERFORM_BUILD }}" 
           fi
 
       # Configure CMake
