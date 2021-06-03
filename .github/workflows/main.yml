@@ -55,15 +55,15 @@ jobs:
           echo "[ check ] last build commit: ${BUILD_COMMIT}"
           if [ ${CHECKOUT_COMMIT} == ${BUILD_COMMIT} ]; then
             echo "[ check ] No build neccessary"
-            export env.PERFORM_BUILD=""
+            export PERFORM_BUILD=false
           else
             echo "[ check ] Rebuild neccessary"
-            export env.PERFORM_BUILD=true
+            export PERFORM_BUILD=true
           fi
 
       # Configure CMake
       - name: Configure CMake
-        if : env.PERFORM_BUILD
+        if : ${{ env.PERFORM_BUILD == 'true' }}
         run: >
           ${SETUP} && 
           cmake -B build -S acts
@@ -89,7 +89,7 @@ jobs:
           
       # Build and Install ACTS, github runners are dual-core VMS
       - name: Build ACTS
-        if: env.PERFORM_BUILD
+        if : ${{ env.PERFORM_BUILD == 'true' }}
         run: |
           cmake --build build -j2 -- install
 
