@@ -87,7 +87,6 @@ jobs:
           -DACTS_BUILD_EXAMPLES_GEANT4=ON
           -DACTS_BUILD_EXAMPLES_HEPMC3=ON
           -DACTS_BUILD_EXAMPLES_PYTHIA8=ON
-          -DACTS_LOG_FAILURE_THRESHOLD=WARNING
 
       # Build and Install ACTS, github runners are dual-core VMS
       - name: Conditional build ACTS
