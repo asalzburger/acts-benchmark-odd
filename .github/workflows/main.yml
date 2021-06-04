@@ -28,8 +28,6 @@ jobs:
     # Setup the environment
     env:
       SETUP: true
-      INSTALL_DIR: ${{ github.workspace }}/install
-      RUN_DIR: ${{ github.workspace }}/run
       PERFORM_BUILD: false
       UPLOAD_BUILD: false
 
@@ -57,10 +55,11 @@ jobs:
           echo "[ check ] last build commit: ${BUILD_COMMIT}"
           if [ ${CHECKOUT_COMMIT} == ${BUILD_COMMIT} ]; then
             echo "[ check ] No build neccessary"
-            echo "PERFORM_BUILD=false" >> $GITHUB_ENV
+            echo "PERFORM_BUILD=flase" >> $GITHUB_ENV
           else
             echo "[ check ] Rebuild neccessary"
             echo "PERFORM_BUILD=true" >> $GITHUB_ENV
+            rm -rf installed
           fi
 
       # Configure CMake conditionally
@@ -72,7 +71,7 @@ jobs:
           -GNinja
           -DCMAKE_BUILD_TYPE=Release
           -DCMAKE_CXX_FLAGS=-Werror
-          -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}"
+          -DCMAKE_INSTALL_PREFIX="installed"
           -DACTS_BUILD_UNITTESTS=OFF
           -DACTS_BUILD_BENCHMARKS=OFF
           -DACTS_BUILD_INTEGRATIONTESTS=OFF
@@ -95,36 +94,20 @@ jobs:
           cmake --build build -j2 -- install
           echo "UPLOAD_BUILD=true" >> $GITHUB_ENV
 
-      # Use the installed folder as is
-      - name: Conditional re-use of prior ACTS build
-        if: ${{ env.PERFORM_BUILD == 'false' }}
-        working-directory: ${{github.workspace}}
-        run: echo "INSTALL_DIR=installed" >> $GITHUB_ENV
-
-      # Setup DD4hep environment
-      - name: Setup DD4hep environment
-        if: false
-        shell: bash
-        run: |
-          cd /usr/local 
-          source bin/thisdd4hep.sh
-
-      # Setup ACTS environment 
-      - name: Setup ACTS environment for fresh build
-        if: false 
-        shell: bash
-        working-directory: ${{ github.workspace }}
-        run: source ${INSTALL_DIR}/bin/this_acts.sh
-
       # Muon chain test
       - name: Multi muon chain test
-        if: false
         shell: bash
         working-directory: ${{ github.workspace }} 
-        run: |
+        run: | 
+          export PWD_DIR=`pwd`         
+          cd /usr/local 
+          source bin/thisdd4hep.sh
+          cd ${PWD_DIR}
+          source /usr/local/bin/thisroot.sh
+          export PATH=`pwd`/installed/bin:${PATH}
+          export LD_LIBRARY_PATH=`pwd`/installed/lib:${LD_LIBRARY_PATH}
           mkdir run
-          cd run
-          export LD_LIBRARY_PATH=${INSTALL_DIR}/lib:${LD_LIBRARY_PATH}   
+          cd run          
           source ${GITHUB_WORKSPACE}/scripts/run_pdgX_mpY_nZ.sh 13 100 1000 10
 
       # Upload the build
@@ -133,8 +116,6 @@ jobs:
         working-directory: ${{ github.workspace }}
         shell: bash
         run: |
-          rm -rf installed
-          mv ${INSTALL_DIR} installed
           mv acts.checkout.commit installed/acts.build.commit 
           tar cvfz installed.tgz installed
           rm data/build/installed.tgz
