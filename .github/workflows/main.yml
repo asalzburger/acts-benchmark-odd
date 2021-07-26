@@ -106,13 +106,14 @@ jobs:
           source /usr/local/bin/thisroot.sh
           export PATH=`pwd`/installed/bin:${PATH}
           export LD_LIBRARY_PATH=`pwd`/installed/lib:${LD_LIBRARY_PATH}
+          source `pwd`/installed/thisacts.sh
           mkdir run
           cd run          
           source ${GITHUB_WORKSPACE}/scripts/run_pdgX_mpY_nZ.sh 13 100 1000 10
 
       # Upload the build
       - name: Conditional tar and upload build
-        if: ${{ env.UPLOAD_BUILD == 'true' }}
+        # if: ${{ env.UPLOAD_BUILD == 'true' }}
         working-directory: ${{ github.workspace }}
         shell: bash
         run: |
