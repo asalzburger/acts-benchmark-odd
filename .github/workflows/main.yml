@@ -124,4 +124,4 @@ jobs:
           git config user.name "Andreas Salzburger"
           git add data/build/installed.tgz
           git commit -m"updating installed.tgz"
-          git push 'https://asalzburger:${{ secrets.PERSONAL_GITHUB_TOKEN }}@github.com/asalzburger/acts-benchmark-odd.git' gh-pages:gh-pages
+          git push -f 'https://asalzburger:${{ secrets.PERSONAL_GITHUB_TOKEN }}@github.com/asalzburger/acts-benchmark-odd.git' gh-pages:gh-pages
