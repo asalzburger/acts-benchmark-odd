@@ -18,7 +18,7 @@ function fatras_reco_chain() {
    echo "--input-dir=${OUT_DIR} --output-dir=${OUT_DIR}" >> ${OUT_DIR}/ckf-smeared-seeds.response
    ActsExampleCKFTracksDD4hep  --response-file=${OUT_DIR}/ckf-smeared-seeds.response > ${OUT_DIR}/ckf-smeared-seeds.log
    mv ${OUT_DIR}/performance_ckf.root ${OUT_DIR}/performance_ckf-smeared-seeds.root
-   mv ${OUT_DIR}/trackparams_ckf.root ${OUT_DIR}/trackparams_ckf-smeared-seeds.root
+   mv ${OUT_DIR}/tracksummary_ckf.root ${OUT_DIR}/tracksummary_ckf-smeared-seeds.root
    mv ${OUT_DIR}/trackstates_ckf.root ${OUT_DIR}/trackstates_ckf-smeared-seeds.root
    # Running the CKF - truth estimated seeds
    echo "-- CKF smeared digitization, truth estimated seeds ... " 
@@ -28,7 +28,7 @@ function fatras_reco_chain() {
    echo "--input-dir=${OUT_DIR} --output-dir=${OUT_DIR}" >> ${OUT_DIR}/ckf-estimated-seeds.response
    ActsExampleCKFTracksDD4hep  --response-file=${OUT_DIR}/ckf-estimated-seeds.response > ${OUT_DIR}/ckf-estimated-seeds.log
    mv ${OUT_DIR}/performance_ckf.root ${OUT_DIR}/performance_ckf-estimated-seeds.root
-   mv ${OUT_DIR}/trackparams_ckf.root ${OUT_DIR}/trackparams_ckf-estimated-seeds.root
+   mv ${OUT_DIR}/tracksummary_ckf.root ${OUT_DIR}/tracksummary_ckf-estimated-seeds.root
    mv ${OUT_DIR}/trackstates_ckf.root ${OUT_DIR}/trackstates_ckf-estimated-seeds.root
    # Running the CKF - reco seeds
    echo "-- CKF with smeared digitization, reconstructed seeds ... " 
@@ -38,7 +38,7 @@ function fatras_reco_chain() {
    echo "--input-dir=${OUT_DIR} --output-dir=${OUT_DIR}" >> ${OUT_DIR}/ckf-reconstruced-seeds.response
    ActsExampleCKFTracksDD4hep  --response-file=${OUT_DIR}/ckf-reconstruced-seeds.response > ${OUT_DIR}/ckf-reconstruced-seeds.log
    mv ${OUT_DIR}/performance_ckf.root ${OUT_DIR}/performance_ckf-reconstruced-seeds.root
-   mv ${OUT_DIR}/trackparams_ckf.root ${OUT_DIR}/trackparams_ckf-reconstruced-seeds.root
+   mv ${OUT_DIR}/tracksummary_ckf.root ${OUT_DIR}/tracksummary_ckf-reconstruced-seeds.root
    mv ${OUT_DIR}/trackstates_ckf.root ${OUT_DIR}/trackstates_ckf-reconstruced-seeds.root
    ls -l ${OUT_DIR}/*.root
 }
