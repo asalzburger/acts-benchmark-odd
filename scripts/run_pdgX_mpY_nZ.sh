@@ -31,7 +31,7 @@ for pt in ${PT_VALS}; do
    echo "--output-dir=${OUT_DIR} --output-csv" >> ${OUT_DIR}/evgen.response   
    ActsExampleParticleGun --response-file=${OUT_DIR}/evgen.response > ${OUT_DIR}/evgen.log
    # Running Fatras-Reco chain 
-   fatras_reco_chain
+   fatras_fitting
 done
 
 

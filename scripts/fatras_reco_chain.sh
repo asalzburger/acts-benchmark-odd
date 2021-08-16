@@ -1,4 +1,4 @@
-function fatras_reco_chain() {
+function fatras_fitting() {
    # Runnig Fatras
    echo "-- Fatras ... " 
    echo "--events=${N_EVENTS} --dd4hep-input=${ODD_DIR}/xml/OpenDataDetector.xml" > ${OUT_DIR}/fatras.response
@@ -11,6 +11,9 @@ function fatras_reco_chain() {
    echo "${TRUTH_FITTING_CONFIG}  ${BFIELD_CONFIG} ${MATERIAL_CONFIG} ${DIGI_CONFIG}" >> ${OUT_DIR}/fitting.response
    echo "--input-dir=${OUT_DIR} --output-dir=${OUT_DIR}" >> ${OUT_DIR}/fitting.response
    ActsExampleTruthTracksDD4hep  --response-file=${OUT_DIR}/fitting.response > ${OUT_DIR}/fitting.log
+}
+
+function reconstruction(){
    # Running the CKF - truth smeared seeds
    echo "-- CKF with smeared digitization, truth smeared seeds ... " 
    echo "--events=${N_EVENTS} --dd4hep-input=${ODD_DIR}/xml/OpenDataDetector.xml" > ${OUT_DIR}/ckf-smeared-seeds.response
@@ -41,4 +44,9 @@ function fatras_reco_chain() {
    mv ${OUT_DIR}/tracksummary_ckf.root ${OUT_DIR}/tracksummary_ckf-reconstruced-seeds.root
    mv ${OUT_DIR}/trackstates_ckf.root ${OUT_DIR}/trackstates_ckf-reconstruced-seeds.root
    ls -l ${OUT_DIR}/*.root
+}
+
+function fatras_reco_chain() {
+   fatras_fitting
+   reconstruction
 }
