@@ -19,7 +19,7 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    container: ghcr.io/acts-project/${{ matrix.image }}:v11
+    container: ghcr.io/acts-project/${{ matrix.image }}:v15
     strategy:
       matrix:
         image:
@@ -86,6 +86,8 @@ jobs:
           -DACTS_BUILD_EXAMPLES_GEANT4=ON
           -DACTS_BUILD_EXAMPLES_HEPMC3=ON
           -DACTS_BUILD_EXAMPLES_PYTHIA8=ON
+          -DACTS_BUILD_EXAMPLES_PYTHON_BINDINGS=On 
+          -DDD4HEP_RELAX_PYVER=On 
 
       # Build and Install ACTS, github runners are dual-core VMS
       - name: Conditional build ACTS
@@ -107,7 +109,6 @@ jobs:
           export PATH=`pwd`/installed/bin:${PATH}
           mkdir run
           cd run          
-          source ${GITHUB_WORKSPACE}/scripts/run_pdgX_mpY_nZ.sh 13 100 1000 10
 
       # Upload the build
       - name: Conditional tar and upload build
