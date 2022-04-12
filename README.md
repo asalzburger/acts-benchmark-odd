@@ -6,3 +6,6 @@ At current it runs
  * fast track simulation
  * truth track fitting
  * combinatorial Kalman filter
+
+It only builds the ACTS source code if the commit hash of ACTS has changed,
+otherwise it re-used a recompiled artifact.
